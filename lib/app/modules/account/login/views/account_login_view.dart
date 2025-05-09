@@ -56,92 +56,104 @@ class AccountLoginView extends GetView<AccountLoginController> {
             Container(
               padding: EdgeInsets.all(ScreenAdapt.width(100)),
               width: ScreenAdapt.width(1080),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: ScreenAdapt.width(1000),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          Fluttertoast.showToast(msg: '请输入手机号码');
-                          return '请输入手机号码';
-                        }
-                        if (!RegExp(r'^1[3-9]\d{9}$').hasMatch(value)) {
-                          Fluttertoast.showToast(msg: '请输入正确的手机号码');
-                          return '请输入正确的手机号码';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        hintText: "请输入手机号码",
-                        prefixIcon: Icon(
-                          Icons.phone_iphone_rounded,
-                          color: Color.fromRGBO(149, 149, 149, 1),
-                        ),
-                        contentPadding: EdgeInsets.only(
-                          left: ScreenAdapt.width(50),
-                          right: ScreenAdapt.width(50),
-                          top: ScreenAdapt.height(50),
-                          bottom: ScreenAdapt.height(50),
-                        ),
-                        filled: true,
-                        fillColor: const Color.fromARGB(255, 237, 248, 255),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(7, 214, 255, 1),
+              //表单
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: ScreenAdapt.width(1000),
+                      child: TextFormField(
+                        controller: controller.phoneController,
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     Fluttertoast.showToast(msg: '请输入手机号码');
+                        //     return '请输入手机号码';
+                        //   }
+                        //   if (!RegExp(r'^1[3-9]\d{9}$').hasMatch(value)) {
+                        //     Fluttertoast.showToast(msg: '请输入正确的手机号码');
+                        //     return '请输入正确的手机号码';
+                        //   }
+                        //   return null;
+                        // },
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          hintText: "请输入手机号码",
+                          prefixIcon: Icon(
+                            Icons.phone_iphone_rounded,
+                            color: Color.fromRGBO(149, 149, 149, 1),
+                          ),
+                          contentPadding: EdgeInsets.only(
+                            left: ScreenAdapt.width(50),
+                            right: ScreenAdapt.width(50),
+                            top: ScreenAdapt.height(50),
+                            bottom: ScreenAdapt.height(50),
+                          ),
+                          filled: true,
+                          fillColor: const Color.fromARGB(255, 245, 251, 255),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(7, 214, 255, 1),
+                            ),
                           ),
                         ),
+                        onChanged: (value) {
+                          controller.phoneNumber.value = value;
+                          print('手机号码：' + controller.phoneController.text );
+                        },
                       ),
-                      onChanged: (value) {
-                        print('手机号码：' + value);
-                      },
                     ),
-                  ),
-                  SizedBox(height: ScreenAdapt.height(60)),
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: ScreenAdapt.width(1000),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              Fluttertoast.showToast(msg: '请输入验证码');
-                              return '请输入验证码';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: "请输入验证码",
-                            contentPadding: EdgeInsets.only(
-                              left: ScreenAdapt.width(60),
-                              right: ScreenAdapt.width(50),
-                              top: ScreenAdapt.height(50),
-                              bottom: ScreenAdapt.height(50),
-                            ),
-                            filled: true,
-                            fillColor: const Color.fromRGBO(237, 248, 255, 1),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(7, 214, 255, 1),
+                    SizedBox(height: ScreenAdapt.height(60)),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          width: ScreenAdapt.width(1000),
+                          child: TextFormField(
+                            controller: controller.codeController,
+                            onChanged: (value) {
+                              controller.code.value = value;
+                              print(controller.code.value);
+                            },
+                            // validator: (value) {
+                            //   print('验证码：' + controller.codeController.text);
+                            //   // if (value == null || value.isEmpty) {
+                            //   //   Fluttertoast.showToast(msg: '请输入验证码');
+                            //   //   return '请输入验证码';
+                            //   // }
+                            //   // return null;
+                            // },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: "请输入验证码",
+                              contentPadding: EdgeInsets.only(
+                                left: ScreenAdapt.width(60),
+                                right: ScreenAdapt.width(50),
+                                top: ScreenAdapt.height(50),
+                                bottom: ScreenAdapt.height(50),
+                              ),
+                              filled: true,
+                              fillColor: const Color.fromARGB(255, 245, 251, 255),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  color: Color.fromRGBO(7, 214, 255, 1),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Positioned(
+                        Positioned(
                           right: ScreenAdapt.width(20),
                           child: Container(
                             height: ScreenAdapt.height(90),
@@ -155,26 +167,34 @@ class AccountLoginView extends GetView<AccountLoginController> {
                             ),
                             child: TextButton(
                               style: TextButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 0),
                               ),
                               onPressed: () {
-                                print('获取验证码');
+                                // controller.getCode();
+                                print('验证码' + controller.codeController.text);
                               },
                               child: Text('获取验证码',
                                   style: TextStyle(
                                       fontSize: ScreenAdapt.fontSize(40),
                                       color: Color.fromRGBO(55, 154, 251, 1))),
                             ),
-                          ))
-                    ],
-                  ),
-                  SizedBox(height: ScreenAdapt.height(60)),
-                  Container(
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: ScreenAdapt.height(60)),
+                    Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         gradient: LinearGradient(
-                          colors: [const Color.fromRGBO(141, 227, 252, 1), const Color.fromRGBO(84, 195, 255, 1)], // 渐变色开始和结束
+                          colors: [
+                            const Color.fromRGBO(141, 227, 252, 1),
+                            const Color.fromRGBO(84, 195, 255, 1)
+                          ], // 渐变色开始和结束
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -189,14 +209,18 @@ class AccountLoginView extends GetView<AccountLoginController> {
                           ),
                         ),
                         onPressed: () {
-                          Get.toNamed(Routes.HOME);
+                          controller.userLogin();
                         },
-                        child: Text("登录",
-                            style: TextStyle(
-                                fontSize: ScreenAdapt.fontSize(50),
-                                color: Colors.white)),
-                      ))
-                ],
+                        child: Text(
+                          "登录",
+                          style: TextStyle(
+                              fontSize: ScreenAdapt.fontSize(50),
+                              color: Colors.white),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],

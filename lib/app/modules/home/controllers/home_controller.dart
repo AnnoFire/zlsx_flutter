@@ -2,8 +2,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-
-  final count = 0.obs;
+  RxList orderList = [].obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,9 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+getOrderList() async{
+  // var response = await HttpsClient().get("zxhsd-yuntaigou-system/yuntaigou/order/list");
+  update(['orderList']);
+}
+
 }

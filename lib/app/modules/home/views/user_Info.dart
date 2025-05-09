@@ -28,8 +28,7 @@ class UserInfo extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: ScreenAdapt.height(100)),
-              // 顶部 Row
+              SizedBox(height: ScreenAdapt.height(90)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
