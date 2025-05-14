@@ -18,9 +18,8 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-getOrderList() async{
-  // var response = await HttpsClient().get("zxhsd-yuntaigou-system/yuntaigou/order/list");
-  update(['orderList']);
-}
-
+  getOrderList() async {
+    // var response = await HttpsClient().get("zxhsd-yuntaigou-system/yuntaigou/order/list");
+    update();
+  }
 }

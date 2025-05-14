@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
 import 'package:zlsx_flutter/app/routes/app_pages.dart';
-import 'package:zlsx_flutter/app/utils/screenAdapt.dart';
+import 'package:zlsx_flutter/app/utils/cross_image.dart';
+import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 
 import '../controllers/account_login_controller.dart';
 
@@ -48,11 +51,12 @@ class AccountLoginView extends GetView<AccountLoginController> {
               ),
             ),
             SizedBox(height: ScreenAdapt.height(100)),
-            Image.network(
-              width: double.infinity,
-              'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
-              fit: BoxFit.cover,
-            ),
+            // CORS跨域图片
+            // Image.network(
+            //   width: double.infinity,
+            //   'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
+            //   fit: BoxFit.cover,
+            // ),
             Container(
               padding: EdgeInsets.all(ScreenAdapt.width(100)),
               width: ScreenAdapt.width(1080),
@@ -78,10 +82,19 @@ class AccountLoginView extends GetView<AccountLoginController> {
                         // },
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
+                          hoverColor: Colors.transparent,
+                          focusColor: Colors.transparent,
                           hintText: "请输入手机号码",
+                          hintStyle: TextStyle(
+                            fontSize: ScreenAdapt.fontSize(36),
+                            // color: Color.fromRGBO(179,179,179,255),
+                            color:Colors.black54,
+                          ),
                           prefixIcon: Icon(
                             Icons.phone_iphone_rounded,
-                            color: Color.fromRGBO(149, 149, 149, 1),
+                            // color: Color.fromRGBO(149, 149, 149, 255),
+                            color:Colors.black54,
+                            size: ScreenAdapt.width(40.0),
                           ),
                           contentPadding: EdgeInsets.only(
                             left: ScreenAdapt.width(50),
@@ -104,7 +117,6 @@ class AccountLoginView extends GetView<AccountLoginController> {
                         ),
                         onChanged: (value) {
                           controller.phoneNumber.value = value;
-                          print('手机号码：' + controller.phoneController.text );
                         },
                       ),
                     ),
@@ -118,19 +130,16 @@ class AccountLoginView extends GetView<AccountLoginController> {
                             controller: controller.codeController,
                             onChanged: (value) {
                               controller.code.value = value;
-                              print(controller.code.value);
                             },
-                            // validator: (value) {
-                            //   print('验证码：' + controller.codeController.text);
-                            //   // if (value == null || value.isEmpty) {
-                            //   //   Fluttertoast.showToast(msg: '请输入验证码');
-                            //   //   return '请输入验证码';
-                            //   // }
-                            //   // return null;
-                            // },
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              hoverColor: Colors.transparent,
+                              focusColor: Colors.transparent,
                               hintText: "请输入验证码",
+                              hintStyle: TextStyle(
+                                fontSize: ScreenAdapt.fontSize(36),
+                                color:Colors.black54,
+                              ),
                               contentPadding: EdgeInsets.only(
                                 left: ScreenAdapt.width(60),
                                 right: ScreenAdapt.width(50),
@@ -138,7 +147,8 @@ class AccountLoginView extends GetView<AccountLoginController> {
                                 bottom: ScreenAdapt.height(50),
                               ),
                               filled: true,
-                              fillColor: const Color.fromARGB(255, 245, 251, 255),
+                              fillColor:
+                                  const Color.fromARGB(255, 245, 251, 255),
                               enabledBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.transparent),
@@ -174,8 +184,7 @@ class AccountLoginView extends GetView<AccountLoginController> {
                                     horizontal: 16, vertical: 0),
                               ),
                               onPressed: () {
-                                // controller.getCode();
-                                print('验证码' + controller.codeController.text);
+                                controller.getCode();
                               },
                               child: Text('获取验证码',
                                   style: TextStyle(
@@ -214,7 +223,7 @@ class AccountLoginView extends GetView<AccountLoginController> {
                         child: Text(
                           "登录",
                           style: TextStyle(
-                              fontSize: ScreenAdapt.fontSize(50),
+                              fontSize: ScreenAdapt.fontSize(48),
                               color: Colors.white),
                         ),
                       ),

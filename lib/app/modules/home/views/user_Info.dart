@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zlsx_flutter/app/utils/screenAdapt.dart';
+import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 
 class UserInfo extends StatelessWidget {
   const UserInfo({super.key});

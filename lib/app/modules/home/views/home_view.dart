@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:zlsx_flutter/app/modules/home/views/user_Info.dart';
-import 'package:zlsx_flutter/app/utils/keepAliveWrapper.dart';
-import 'package:zlsx_flutter/app/utils/screenAdapt.dart';
+import 'package:zlsx_flutter/app/utils/keep_alive_wrapper.dart';
+import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

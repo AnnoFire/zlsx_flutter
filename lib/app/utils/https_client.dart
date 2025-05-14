@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpsClient {
@@ -15,8 +16,12 @@ class HttpsClient {
   Future get(String api) async {
     try {
       var response = await dio.get(api);
-
-      return response;
+      if (response.data['code'] == 0 && response.data != null) {
+        return response;
+      } else {
+        Fluttertoast.showToast(msg: response.data['msg']);
+        return null;
+      }
     } catch (e) {
       return null;
     }
@@ -25,7 +30,12 @@ class HttpsClient {
   Future post(String api, {data}) async {
     try {
       var response = await dio.post(api, data: data);
-      return response;
+      if (response.data['code'] == 0 && response.data != null) {
+        return response;
+      } else {
+        Fluttertoast.showToast(msg: response.data['data']['msg']);
+        return null;
+      }
     } catch (e) {
       return null;
     }
