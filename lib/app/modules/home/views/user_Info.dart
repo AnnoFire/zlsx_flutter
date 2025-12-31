@@ -14,8 +14,8 @@ class UserInfo extends StatelessWidget {
         height: ScreenAdapt.height(560),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(
-                'https://imagesize.zhsc.zxhsd.com/sp/files/9cce7ae1-9efe-4dc5-b712-0764ff9068c8.png'),
+            image:
+                AssetImage('/image/9cce7ae1-9efe-4dc5-b712-0764ff9068c8.png'),
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -59,8 +59,8 @@ class UserInfo extends StatelessWidget {
                               const Color.fromRGBO(200, 237, 255, 0.326),
                         ),
                         onPressed: () => Get.toNamed('/account/logoff'),
-                        icon: Image.network(
-                          "https://imagesize.zhsc.zxhsd.com/sp/files/de39f956-07fb-4e89-8699-1f3da57b1195.png",
+                        icon: Image.asset(
+                          '/image/de39f956-07fb-4e89-8699-1f3da57b1195.png',
                           width: ScreenAdapt.width(45),
                           height: ScreenAdapt.height(45),
                           color: const Color.fromRGBO(255, 255, 255, 1),
@@ -75,13 +75,13 @@ class UserInfo extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 14),
                       minimumSize:
-                          Size(ScreenAdapt.width(210), ScreenAdapt.height(100)),
+                          Size(ScreenAdapt.width(210), ScreenAdapt.height(120)),
                       side: BorderSide(
                         color: const Color.fromRGBO(255, 255, 255, 0.851),
                       ),
                     ),
-                    icon: Image.network(
-                      'https://imagesize.zhsc.zxhsd.com/sp/files/2ce0d2e3-bb59-4451-b86d-edd90c388257.png',
+                    icon: Image.asset(
+                      '/image/2ce0d2e3-bb59-4451-b86d-edd90c388257.png',
                       width: ScreenAdapt.width(45),
                       height: ScreenAdapt.height(45),
                       color: const Color.fromRGBO(255, 255, 255, 1),
@@ -104,8 +104,8 @@ class UserInfo extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Image.network(
-                          "https://imagesize.zhsc.zxhsd.com/sp/files/9ce0ae59-3f48-4203-b0e8-6f654ac7c9ce.png",
+                        Image.asset(
+                          '/image/9ce0ae59-3f48-4203-b0e8-6f654ac7c9ce.png',
                           width: ScreenAdapt.width(60),
                           height: ScreenAdapt.height(60),
                         ),
@@ -128,8 +128,8 @@ class UserInfo extends StatelessWidget {
                     SizedBox(height: ScreenAdapt.height(10)),
                     Row(
                       children: [
-                        Image.network(
-                          "https://imagesize.zhsc.zxhsd.com/sp/files/e80f391b-5eae-415f-ba9d-a3051da9b8b2.png",
+                        Image.asset(
+                          '/image/e80f391b-5eae-415f-ba9d-a3051da9b8b2.png',
                           width: ScreenAdapt.width(60),
                           height: ScreenAdapt.height(60),
                         ),

@@ -15,13 +15,6 @@ class AccountLoginView extends GetView<AccountLoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('浙里书香管理端',
-      //       style: TextStyle(fontSize: ScreenAdapt.fontSize(50))),
-      //   backgroundColor: Color.fromRGBO(237, 237, 237, 1),
-      //   centerTitle: true,
-      // ),
-      // TODO: 验证码 登录
       body: Center(
         child: Column(
           children: [
@@ -51,12 +44,22 @@ class AccountLoginView extends GetView<AccountLoginController> {
               ),
             ),
             SizedBox(height: ScreenAdapt.height(100)),
-            // CORS跨域图片
-            // Image.network(
+            // Image.asset(
+            //   '/image/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
             //   width: double.infinity,
-            //   'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
             //   fit: BoxFit.cover,
             // ),
+            // Image.network(
+            //   'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
+            //   width: double.infinity,
+            //   fit: BoxFit.cover,
+            // ),
+            // 模拟器本地使用的地址
+            // Image.network(
+            //   'http://10.0.2.2:3000/images/bg.webp',
+            // ),
+            Image.network(
+                'http://10.0.2.2:3000/proxy?url=https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png'),
             Container(
               padding: EdgeInsets.all(ScreenAdapt.width(100)),
               width: ScreenAdapt.width(1080),
@@ -65,21 +68,14 @@ class AccountLoginView extends GetView<AccountLoginController> {
                 key: controller.formKey,
                 child: Column(
                   children: [
-                    SizedBox(
-                      width: ScreenAdapt.width(1000),
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: ScreenAdapt.width(1000),
+                        maxHeight: ScreenAdapt.height(150),
+                      ),
                       child: TextFormField(
                         controller: controller.phoneController,
-                        // validator: (value) {
-                        //   if (value == null || value.isEmpty) {
-                        //     Fluttertoast.showToast(msg: '请输入手机号码');
-                        //     return '请输入手机号码';
-                        //   }
-                        //   if (!RegExp(r'^1[3-9]\d{9}$').hasMatch(value)) {
-                        //     Fluttertoast.showToast(msg: '请输入正确的手机号码');
-                        //     return '请输入正确的手机号码';
-                        //   }
-                        //   return null;
-                        // },
+                        textAlignVertical: TextAlignVertical.center,
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
                           hoverColor: Colors.transparent,
@@ -87,14 +83,12 @@ class AccountLoginView extends GetView<AccountLoginController> {
                           hintText: "请输入手机号码",
                           hintStyle: TextStyle(
                             fontSize: ScreenAdapt.fontSize(36),
-                            // color: Color.fromRGBO(179,179,179,255),
-                            color:Colors.black54,
+                            color: Colors.black54,
                           ),
                           prefixIcon: Icon(
                             Icons.phone_iphone_rounded,
-                            // color: Color.fromRGBO(149, 149, 149, 255),
-                            color:Colors.black54,
-                            size: ScreenAdapt.width(40.0),
+                            color: Colors.black54,
+                            size: ScreenAdapt.width(50.0),
                           ),
                           contentPadding: EdgeInsets.only(
                             left: ScreenAdapt.width(50),
@@ -126,8 +120,10 @@ class AccountLoginView extends GetView<AccountLoginController> {
                       children: [
                         SizedBox(
                           width: ScreenAdapt.width(1000),
+                          height: ScreenAdapt.height(150),
                           child: TextFormField(
                             controller: controller.codeController,
+                            textAlignVertical: TextAlignVertical.center,
                             onChanged: (value) {
                               controller.code.value = value;
                             },
@@ -138,7 +134,7 @@ class AccountLoginView extends GetView<AccountLoginController> {
                               hintText: "请输入验证码",
                               hintStyle: TextStyle(
                                 fontSize: ScreenAdapt.fontSize(36),
-                                color:Colors.black54,
+                                color: Colors.black54,
                               ),
                               contentPadding: EdgeInsets.only(
                                 left: ScreenAdapt.width(60),

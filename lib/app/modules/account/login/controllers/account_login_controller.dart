@@ -26,33 +26,11 @@ class AccountLoginController extends GetxController {
   // 验证手机号
   bool validatePhone(value) {
     if (value == null || value.isEmpty) {
-      Fluttertoast.showToast(
-        msg: '请输入手机号码',
-        toastLength: Toast.LENGTH_LONG,
-        timeInSecForIosWeb: 3,
-        backgroundColor: const Color.fromARGB(221, 0, 0, 0),
-        textColor: Colors.white,
-        fontSize: ScreenAdapt.fontSize(16),
-        gravity: ToastGravity.CENTER,
-        webShowClose: false,
-        webBgColor: "linear-gradient(to right, #000000, #000000)",
-        webPosition: "center",
-      );
+      CustomToast.show(msg: '请输入手机号码');
       return false;
     }
     if (!RegExp(r'^1[3-9]\d{9}$').hasMatch(value)) {
-      Fluttertoast.showToast(
-        msg: '请输入正确的手机号码',
-        toastLength: Toast.LENGTH_LONG,
-        timeInSecForIosWeb: 3,
-        backgroundColor: const Color.fromARGB(221, 0, 0, 0),
-        textColor: Colors.white,
-        fontSize: ScreenAdapt.fontSize(16),
-        gravity: ToastGravity.CENTER,
-        webShowClose: false,
-        webBgColor: "linear-gradient(to right, #000000, #000000)",
-        webPosition: "center",
-      );
+      CustomToast.show(msg: '请输入正确的手机号码');
       return false;
     }
     update();
@@ -70,23 +48,27 @@ class AccountLoginController extends GetxController {
     //   uuid.value = response.data['data']['uuid'];
     //   await box.write('uuid', uuid.value);
     // }
-    CustomToast.show(msg: '验证码已发送,注意查收');
+    CustomToast.show(
+      msg: '验证码发送成功，请注意查收',
+    );
   }
 
   void userLogin() async {
-    final savedUuid = box.read('uuid');
-    var response = await HttpsClient().post(
-        "https://dev.app.zxhsd.com/gateway/zxhsd-yuntaigou-system/yuntaigou/auth/mobile/login",
-        data: {
-          "mobile": phoneNumber.value,
-          "code": code.value,
-          "uuid": savedUuid,
-        });
-    if (response.data['code'] == 0 && response.data != null) {
-      //保存token
-      HttpsClient().saveToken(response.data['token']);
-      //跳转到首页
-      Get.offAllNamed('/home');
-    }
+    // final savedUuid = box.read('uuid');
+    // var response = await HttpsClient().post(
+    //     "https://dev.app.zxhsd.com/gateway/zxhsd-yuntaigou-system/yuntaigou/auth/mobile/login",
+    //     data: {
+    //       "mobile": phoneNumber.value,
+    //       "code": code.value,
+    //       "uuid": savedUuid,
+    //     });
+    // if (response.data['code'] == 0) {
+    //   //保存token
+    //   HttpsClient().saveToken(response.data['token']);
+    //   //跳转到首页
+    //   Get.offAllNamed('/home');
+    // }
+    // print(HttpsClient().getToken());
+    Get.offAllNamed('/home');
   }
 }

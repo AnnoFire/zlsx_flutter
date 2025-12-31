@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:zlsx_flutter/app/utils/cross_image.dart';
 import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 
 class InfiniteRotation extends StatefulWidget {
@@ -56,8 +57,8 @@ class _InfiniteRotationState extends State<InfiniteRotation>
             child: SvgPicture.memory(
               widget.decodeBytes,
               fit: BoxFit.cover,
-              width: ScreenAdapt.width(50),
-              height: ScreenAdapt.width(50),
+              width: ScreenAdapt.width(40),
+              height: ScreenAdapt.width(40),
             ),
           );
         },
@@ -70,7 +71,7 @@ class CustomToast {
   static OverlayEntry? overlayEntry;
   static void show({
     required String msg,
-    String iconType = 'loading',
+    String iconType = 'none',
     String image = '',
     bool mask = false,
     Duration duration = const Duration(seconds: 2),
@@ -130,8 +131,8 @@ class _ToastWidget extends StatelessWidget {
         iconWidget = SvgPicture.memory(
           decodeBytes,
           fit: BoxFit.cover,
-          width: ScreenAdapt.width(60),
-          height: ScreenAdapt.width(60),
+          width: ScreenAdapt.width(40),
+          height: ScreenAdapt.width(40),
         );
         break;
       case 'error':
@@ -140,8 +141,8 @@ class _ToastWidget extends StatelessWidget {
         iconWidget = SvgPicture.memory(
           decodeBytes,
           fit: BoxFit.cover,
-          width: ScreenAdapt.width(60),
-          height: ScreenAdapt.width(60),
+          width: ScreenAdapt.width(40),
+          height: ScreenAdapt.width(40),
         );
         break;
       case 'loading':
@@ -190,27 +191,23 @@ class _ToastWidget extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // image != ''
-                  //     ? Padding(
-                  //         padding: EdgeInsets.only(top: ScreenAdapt.height(12)),
-                  //         child: Image.network(
-                  //           image,
-                  //           height: ScreenAdapt.height(40),
-                  //           width: ScreenAdapt.width(40),
-                  //           fit: BoxFit.cover,
-                  //         ),
-                  //       )
-                  //     : iconWidget,
-                  iconWidget,
-                  // InfiniteRotation(
-                  //   child: SvgPicture.memory(
-                  //     base64.decode(
-                  //         'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgxMDB2MTAwSDB6Ii8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTlFOUU5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAgLTMwKSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iIzk4OTY5NyIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgzMCAxMDUuOTggNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjOUI5OTlBIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDYwIDc1Ljk4IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0EzQTFBMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCA2NSA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNBQkE5QUEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDU4LjY2IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0IyQjJCMiIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNTAgNTQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjQkFCOEI5IiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDMkMwQzEiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1MCA0NS45OCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNDQkNCQ0IiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTEyMCA0MS4zNCA2NSkiLz48cmVjdCB3aWR0aD0iNyIgaGVpZ2h0PSIyMCIgeD0iNDYuNSIgeT0iNDAiIGZpbGw9IiNEMkQyRDIiIHJ4PSI1IiByeT0iNSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwIDM1IDY1KSIvPjxyZWN0IHdpZHRoPSI3IiBoZWlnaHQ9IjIwIiB4PSI0Ni41IiB5PSI0MCIgZmlsbD0iI0RBREFEQSIgcng9IjUiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgtNjAgMjQuMDIgNjUpIi8+PHJlY3Qgd2lkdGg9IjciIGhlaWdodD0iMjAiIHg9IjQ2LjUiIHk9IjQwIiBmaWxsPSIjRTJFMkUyIiByeD0iNSIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKC0zMCAtNS45OCA2NSkiLz48L3N2Zz4='),
-                  //     fit: BoxFit.cover,
-                  //     width: ScreenAdapt.width(60),
-                  //     height: ScreenAdapt.width(60),
-                  //   ),
-                  // ),
+                  image != ''
+                      ? Padding(
+                          padding: EdgeInsets.only(top: ScreenAdapt.height(12)),
+                          child: CrossImage(
+                            url:image,
+                            width: ScreenAdapt.width(40),
+                            height: ScreenAdapt.height(40),
+                            fit: BoxFit.cover,
+                          ),
+                          // child: Image.network(
+                          //   image,
+                          //   height: ScreenAdapt.height(40),
+                          //   width: ScreenAdapt.width(40),
+                          //   fit: BoxFit.cover,
+                          // ),
+                        )
+                      : iconWidget,
                   Padding(
                     padding: EdgeInsets.only(
                       top: ScreenAdapt.height(12),

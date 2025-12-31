@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:dio/io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zlsx_flutter/app/components/custom_toast.dart';
 
 class HttpsClient {
   //静态属性共享内存空间
@@ -9,8 +10,14 @@ class HttpsClient {
 
   HttpsClient() {
     dio.options.baseUrl = domain;
-    dio.options.connectTimeout = Duration(milliseconds: 5000);
-    dio.options.receiveTimeout = Duration(milliseconds: 5000);
+    dio.options.connectTimeout = Duration(milliseconds: 3000);
+    dio.options.receiveTimeout = Duration(milliseconds: 3000);
+    dio.options.sendTimeout = Duration(milliseconds: 3000);
+    dio.options.headers = {
+      "Sec-Fetch-Mode": "no-cors",
+      "Sec-Fetch-Site": "cross-site",
+      "Authorization": "Bearer ${HttpsClient().getToken()}"
+    };
   }
 
   Future get(String api) async {
@@ -19,10 +26,11 @@ class HttpsClient {
       if (response.data['code'] == 0 && response.data != null) {
         return response;
       } else {
-        Fluttertoast.showToast(msg: response.data['msg']);
+        CustomToast.show(msg: response.data['data']['msg']);
         return null;
       }
     } catch (e) {
+      CustomToast.show(msg: '请求出错:${e.toString()}');
       return null;
     }
   }
@@ -33,7 +41,7 @@ class HttpsClient {
       if (response.data['code'] == 0 && response.data != null) {
         return response;
       } else {
-        Fluttertoast.showToast(msg: response.data['data']['msg']);
+        CustomToast.show(msg: response.data['data']['msg']);
         return null;
       }
     } catch (e) {
