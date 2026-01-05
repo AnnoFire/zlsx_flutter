@@ -2,10 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zlsx_flutter/app/components/custom_toast.dart';
+import 'package:zlsx_flutter/app/config/env_config.dart';
 
 class HttpsClient {
   //静态属性共享内存空间
-  static String domain = "https://dev.app.zxhsd.com/gateway";
+  static String domain = EnvConfig.apiBaseUrl;
   static Dio dio = Dio();
 
   HttpsClient() {

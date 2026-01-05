@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:zlsx_flutter/app/routes/app_pages.dart';
 import 'package:zlsx_flutter/app/utils/cross_image.dart';
 import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
+import 'package:zlsx_flutter/app/utils/image_helper.dart';
 
 import '../controllers/account_login_controller.dart';
 
@@ -44,22 +45,14 @@ class AccountLoginView extends GetView<AccountLoginController> {
               ),
             ),
             SizedBox(height: ScreenAdapt.height(100)),
-            // Image.asset(
-            //   '/image/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
-            //   width: double.infinity,
-            //   fit: BoxFit.cover,
-            // ),
-            // Image.network(
-            //   'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
-            //   width: double.infinity,
-            //   fit: BoxFit.cover,
-            // ),
-            // 模拟器本地使用的地址
-            // Image.network(
-            //   'http://10.0.2.2:3000/images/bg.webp',
-            // ),
-            Image.network(
-                'http://10.0.2.2:3000/proxy?url=https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png'),
+            // 使用 ImageHelper 自动处理环境切换
+            // 开发环境会自动通过代理服务器请求
+            // 生产环境会直接请求原始URL
+            ImageHelper.network(
+              'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
             Container(
               padding: EdgeInsets.all(ScreenAdapt.width(100)),
               width: ScreenAdapt.width(1080),
