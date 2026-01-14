@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zlsx_flutter/app/config/env_config.dart';
 
 /// 图片辅助工具类
 class ImageHelper {
@@ -18,8 +17,8 @@ class ImageHelper {
     Widget Function(BuildContext, Object, StackTrace?)? errorBuilder,
     Widget Function(BuildContext, Widget, ImageChunkEvent?)? loadingBuilder,
   }) {
-    // 根据环境获取处理后的URL
-    final processedUrl = EnvConfig.getImageUrl(url);
+    // 直接使用原始URL
+    final processedUrl = url;
 
     return Image.network(
       processedUrl,
@@ -63,9 +62,9 @@ class ImageHelper {
     );
   }
 
-  /// 获取处理后的图片URL（不创建Widget）
+  /// 获取图片URL(不创建Widget)
   /// 适用于需要直接使用URL的场景
   static String getUrl(String originalUrl) {
-    return EnvConfig.getImageUrl(originalUrl);
+    return originalUrl;
   }
 }

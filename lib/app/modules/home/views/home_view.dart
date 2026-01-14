@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:zlsx_flutter/app/modules/home/views/user_Info.dart';
+import 'package:zlsx_flutter/app/modules/home/views/user_info.dart';
 import 'package:zlsx_flutter/app/utils/https_client.dart';
 import 'package:zlsx_flutter/app/utils/keep_alive_wrapper.dart';
 import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
@@ -160,8 +160,8 @@ class HomeView extends GetView<HomeController> {
                               Padding(
                                 padding: EdgeInsets.only(
                                     right: ScreenAdapt.width(16)),
-                                child: Image.asset(
-                                  '/image/2b8219cb-b090-4149-be51-331e161e0335.png',
+                                child: Image.network(
+                                  'https://imagesize.zhsc.zxhsd.com/sp/files/2b8219cb-b090-4149-be51-331e161e0335.png',
                                   width: ScreenAdapt.width(40),
                                 ),
                               ),
@@ -190,10 +190,10 @@ class HomeView extends GetView<HomeController> {
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                         left: ScreenAdapt.width(4)),
-                                    child: Image.asset(
-                                      '/image/267dbd54-5927-499d-9866-29e625aa4d6b.png',
-                                      width: ScreenAdapt.width(50),
-                                    ),
+                                    // child: Image.asset(
+                                    //   '/image/267dbd54-5927-499d-9866-29e625aa4d6b.png',
+                                    //   width: ScreenAdapt.width(50),
+                                    // ),
                                   ),
                                 ),
                               ],
@@ -229,12 +229,13 @@ class HomeView extends GetView<HomeController> {
                           child: Row(
                             children: [
                               Padding(
-                                  padding: EdgeInsets.only(
-                                      right: ScreenAdapt.width(16)),
-                                  child: Image.asset(
-                                    '/image/6ec03af6-5b14-4f4e-85d0-63a4b46462a4.png',
-                                    width: ScreenAdapt.width(40),
-                                  )),
+                                padding: EdgeInsets.only(
+                                    right: ScreenAdapt.width(16)),
+                                child: Image.network(
+                                  'https://imagesize.zhsc.zxhsd.com/sp/files/6ec03af6-5b14-4f4e-85d0-63a4b46462a4.png',
+                                  width: ScreenAdapt.width(40),
+                                ),
+                              ),
                               Text(
                                 '时间:',
                                 style: TextStyle(
@@ -375,11 +376,11 @@ class HomeView extends GetView<HomeController> {
                           child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              '/image/acad2fea-3a80-4701-aa7e-d85c211efb57.png',
-                              height: ScreenAdapt.height(400),
-                              width: ScreenAdapt.width(400),
-                            ),
+                            // Image.asset(
+                            //   '/image/acad2fea-3a80-4701-aa7e-d85c211efb57.png',
+                            //   height: ScreenAdapt.height(400),
+                            //   width: ScreenAdapt.width(400),
+                            // ),
                             SizedBox(height: ScreenAdapt.height(70)),
                             Text(
                               '暂无订单',

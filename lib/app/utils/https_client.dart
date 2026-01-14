@@ -17,7 +17,10 @@ class HttpsClient {
     dio.options.headers = {
       "Sec-Fetch-Mode": "no-cors",
       "Sec-Fetch-Site": "cross-site",
-      "Authorization": "Bearer ${HttpsClient().getToken()}"
+      // "Authorization": "Bearer ${HttpsClient().getToken()}"
+      //临时token
+      "Authorization":
+          "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjozMTksInVzZXJfa2V5IjoiZTgxODc4Y2ItOGJjYi00YWEzLTkyMTktY2Q3OTE5MTIyMWQzIiwidXNlcm5hbWUiOiJ4dWRvbmdoIn0.cRB_UkcTjMXs2f_qAtqiXoPlcE4xcT73ybwEZjQ9SVWlGTNjYEF9LSKY0-Yuesxu07Y9CkiSqhmx0GelHTs0cQ"
     };
   }
 

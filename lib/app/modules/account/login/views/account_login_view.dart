@@ -45,10 +45,15 @@ class AccountLoginView extends GetView<AccountLoginController> {
               ),
             ),
             SizedBox(height: ScreenAdapt.height(100)),
-            // 使用 ImageHelper 自动处理环境切换
-            // 开发环境会自动通过代理服务器请求
-            // 生产环境会直接请求原始URL
-            ImageHelper.network(
+            // // 使用 ImageHelper 自动处理环境切换
+            // // 开发环境会自动通过代理服务器请求
+            // // 生产环境会直接请求原始URL
+            // ImageHelper.network(
+            //   'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
+            //   width: double.infinity,
+            //   fit: BoxFit.cover,
+            // ),
+            Image.network(
               'https://imagesize.zhsc.zxhsd.com/sp/files/328b44e8-a2ed-41c2-a274-bb0bf0a6fd94.png',
               width: double.infinity,
               fit: BoxFit.cover,
