@@ -45,16 +45,64 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Wrap(
-                        spacing: ScreenAdapt.width(10),
-                        runSpacing: ScreenAdapt.height(20),
-                        children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Wrap(
+                      spacing: ScreenAdapt.width(10),
+                      runSpacing: ScreenAdapt.height(20),
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: ScreenAdapt.width(24)),
+                          padding: EdgeInsets.fromLTRB(
+                            ScreenAdapt.width(30),
+                            ScreenAdapt.height(2),
+                            ScreenAdapt.width(30),
+                            ScreenAdapt.height(4),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue,
+                                width: ScreenAdapt.width(2)),
+                            borderRadius:
+                                BorderRadius.circular(ScreenAdapt.width(6)),
+                          ),
+                          child: Text(
+                            selfOrder ? '自主下单' : '强制下单',
+                            style: TextStyle(
+                              fontSize: ScreenAdapt.fontSize(36),
+                              color: Color.fromARGB(255, 55, 154, 251),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: ScreenAdapt.width(24)),
+                          padding: EdgeInsets.fromLTRB(
+                            ScreenAdapt.width(30),
+                            ScreenAdapt.height(2),
+                            ScreenAdapt.width(30),
+                            ScreenAdapt.height(4),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.blue,
+                                width: ScreenAdapt.width(2)),
+                            borderRadius:
+                                BorderRadius.circular(ScreenAdapt.width(6)),
+                          ),
+                          child: Text(
+                            ChargeType.preCharge.value == orderData.chargeType
+                                ? '单次付清'
+                                : '预收尾款',
+                            style: TextStyle(
+                              fontSize: ScreenAdapt.fontSize(36),
+                              color: Color.fromARGB(255, 55, 154, 251),
+                            ),
+                          ),
+                        ),
+                        for (var value in disArr!)
                           Container(
                             margin:
                                 EdgeInsets.only(right: ScreenAdapt.width(24)),
@@ -72,88 +120,36 @@ class HomeView extends GetView<HomeController> {
                                   BorderRadius.circular(ScreenAdapt.width(6)),
                             ),
                             child: Text(
-                              selfOrder ? '自主下单' : '强制下单',
+                              distributionTypeMap[value] ?? '',
                               style: TextStyle(
                                 fontSize: ScreenAdapt.fontSize(36),
                                 color: Color.fromARGB(255, 55, 154, 251),
                               ),
                             ),
                           ),
-                          Container(
-                            margin:
-                                EdgeInsets.only(right: ScreenAdapt.width(24)),
-                            padding: EdgeInsets.fromLTRB(
-                              ScreenAdapt.width(30),
-                              ScreenAdapt.height(2),
-                              ScreenAdapt.width(30),
-                              ScreenAdapt.height(4),
-                            ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.blue,
-                                  width: ScreenAdapt.width(2)),
-                              borderRadius:
-                                  BorderRadius.circular(ScreenAdapt.width(6)),
-                            ),
-                            child: Text(
-                              ChargeType.preCharge.value == orderData.chargeType
-                                  ? '单次付清'
-                                  : '预收尾款',
-                              style: TextStyle(
-                                fontSize: ScreenAdapt.fontSize(36),
-                                color: Color.fromARGB(255, 55, 154, 251),
-                              ),
-                            ),
-                          ),
-                          for (var value in disArr!)
-                            Container(
-                              margin:
-                                  EdgeInsets.only(right: ScreenAdapt.width(24)),
-                              padding: EdgeInsets.fromLTRB(
-                                ScreenAdapt.width(30),
-                                ScreenAdapt.height(2),
-                                ScreenAdapt.width(30),
-                                ScreenAdapt.height(4),
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.blue,
-                                    width: ScreenAdapt.width(2)),
-                                borderRadius:
-                                    BorderRadius.circular(ScreenAdapt.width(6)),
-                              ),
-                              child: Text(
-                                distributionTypeMap[value] ?? '',
-                                style: TextStyle(
-                                  fontSize: ScreenAdapt.fontSize(36),
-                                  color: Color.fromARGB(255, 55, 154, 251),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
+                      ],
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(
-                        ScreenAdapt.width(32),
-                        ScreenAdapt.height(12),
-                        ScreenAdapt.width(32),
-                        ScreenAdapt.width(12),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 229, 242, 255),
-                        borderRadius:
-                            BorderRadius.circular(ScreenAdapt.height(5)),
-                      ),
-                      child: Text(
-                        activityStatusMap[orderData.status] ?? '',
-                        style: TextStyle(
-                            fontSize: ScreenAdapt.fontSize(36),
-                            color: Color.fromARGB(255, 55, 154, 251)),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(
+                      ScreenAdapt.width(32),
+                      ScreenAdapt.height(12),
+                      ScreenAdapt.width(32),
+                      ScreenAdapt.width(12),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 229, 242, 255),
+                      borderRadius:
+                          BorderRadius.circular(ScreenAdapt.height(5)),
+                    ),
+                    child: Text(
+                      activityStatusMap[orderData.status] ?? '',
+                      style: TextStyle(
+                          fontSize: ScreenAdapt.fontSize(36),
+                          color: Color.fromARGB(255, 55, 154, 251)),
+                    ),
+                  )
+                ],
               ),
               GestureDetector(
                 onTap: () {
@@ -192,98 +188,95 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(right: ScreenAdapt.width(10)),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right: ScreenAdapt.width(16)),
-                                child: Image.network(
-                                  'https://imagesize.zhsc.zxhsd.com/sp/files/2b8219cb-b090-4149-be51-331e161e0335.png',
-                                  width: ScreenAdapt.width(40),
-                                ),
+              Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: ScreenAdapt.width(10)),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(right: ScreenAdapt.width(16)),
+                              child: Image.network(
+                                'https://imagesize.zhsc.zxhsd.com/sp/files/2b8219cb-b090-4149-be51-331e161e0335.png',
+                                width: ScreenAdapt.width(40),
                               ),
-                              Text(
-                                '客户:',
-                                style: TextStyle(
-                                  fontSize: ScreenAdapt.fontSize(48),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
+                            ),
+                            Text(
+                              '客户:',
                               style: TextStyle(
                                 fontSize: ScreenAdapt.fontSize(48),
-                                color: Colors.black,
                               ),
-                              children: [
-                                TextSpan(
-                                  text: orderData.customerName ?? '-',
-                                ),
-                                WidgetSpan(
-                                  alignment: PlaceholderAlignment.middle,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: ScreenAdapt.width(4)),
-                                  ),
-                                ),
-                              ],
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding:
-                              EdgeInsets.only(right: ScreenAdapt.width(10)),
-                          child: Row(
+                      ),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontSize: ScreenAdapt.fontSize(48),
+                              color: Colors.black,
+                            ),
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    right: ScreenAdapt.width(16)),
-                                child: Image.network(
-                                  'https://imagesize.zhsc.zxhsd.com/sp/files/6ec03af6-5b14-4f4e-85d0-63a4b46462a4.png',
-                                  width: ScreenAdapt.width(40),
-                                ),
+                              TextSpan(
+                                text: orderData.customerName ?? '-',
                               ),
-                              Text(
-                                '时间:',
-                                style: TextStyle(
-                                  fontSize: ScreenAdapt.fontSize(48),
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: ScreenAdapt.width(4)),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            "${formatDate(orderData.orderBeginDate)}" +
-                                " - " +
-                                "${formatDate(orderData.orderEndDate)}",
-                            style: TextStyle(
-                              fontSize: ScreenAdapt.fontSize(48),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(right: ScreenAdapt.width(10)),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(right: ScreenAdapt.width(16)),
+                              child: Image.network(
+                                'https://imagesize.zhsc.zxhsd.com/sp/files/6ec03af6-5b14-4f4e-85d0-63a4b46462a4.png',
+                                width: ScreenAdapt.width(40),
+                              ),
                             ),
-                            softWrap: true,
-                            // overflow: TextOverflow.ellipsis,
+                            Text(
+                              '时间:',
+                              style: TextStyle(
+                                fontSize: ScreenAdapt.fontSize(48),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "${formatDate(orderData.orderBeginDate)}" +
+                              " - " +
+                              "${formatDate(orderData.orderEndDate)}",
+                          style: TextStyle(
+                            fontSize: ScreenAdapt.fontSize(48),
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                          softWrap: true,
+                          // overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
               Container(
                 width: ScreenAdapt.width(880),
@@ -319,8 +312,7 @@ class HomeView extends GetView<HomeController> {
                         decoration: BoxDecoration(color: Colors.grey),
                       ),
                     ),
-                    Container(
-                        child: Row(
+                    Row(
                       children: [
                         Text(
                           orderData.orderCount ?? '-',
@@ -338,7 +330,7 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ),
                       ],
-                    )),
+                    ),
                     SizedBox(
                       width: ScreenAdapt.width(4),
                       height: ScreenAdapt.height(45),
@@ -346,8 +338,7 @@ class HomeView extends GetView<HomeController> {
                         decoration: BoxDecoration(color: Colors.grey),
                       ),
                     ),
-                    Container(
-                        child: Row(children: [
+                    Row(children: [
                       Text(
                         orderData.afterSaleCount ?? '-',
                         style: TextStyle(
@@ -363,7 +354,7 @@ class HomeView extends GetView<HomeController> {
                           color: Color.fromARGB(255, 128, 128, 128),
                         ),
                       ),
-                    ])),
+                    ]),
                   ],
                 ),
               )
