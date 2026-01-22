@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zlsx_flutter/app/components/custom_toast.dart';
 import 'package:zlsx_flutter/app/config/env_config.dart';
@@ -17,10 +18,11 @@ class HttpsClient {
     dio.options.headers = {
       "Sec-Fetch-Mode": "no-cors",
       "Sec-Fetch-Site": "cross-site",
+      "content-type": "application/json",
       // "Authorization": "Bearer ${HttpsClient().getToken()}"
       //临时token
       "Authorization":
-          "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjozMTksInVzZXJfa2V5IjoiZTgxODc4Y2ItOGJjYi00YWEzLTkyMTktY2Q3OTE5MTIyMWQzIiwidXNlcm5hbWUiOiJ4dWRvbmdoIn0.cRB_UkcTjMXs2f_qAtqiXoPlcE4xcT73ybwEZjQ9SVWlGTNjYEF9LSKY0-Yuesxu07Y9CkiSqhmx0GelHTs0cQ"
+          "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjozMTksInVzZXJfa2V5IjoiY2MwN2ZkZGUtYmZiMS00YWRkLWEzMmEtMzc2MjkyNzhkN2M0IiwidXNlcm5hbWUiOiJ4dWRvbmdoIn0.4t6FJlmtAAenJ__W7p8jaiMHRg4QadVkXC4jA6J_p1tISaBMvcCGRPpe-NrTu3wy4wEpEZdhKw75A6A9HPVoUQ"
     };
   }
 
@@ -39,7 +41,7 @@ class HttpsClient {
     }
   }
 
-  Future post(String api, {data}) async {
+  Future post(String api, data) async {
     try {
       var response = await dio.post(api, data: data);
       if (response.data['code'] == 0 && response.data != null) {
@@ -49,6 +51,7 @@ class HttpsClient {
         return null;
       }
     } catch (e) {
+      CustomToast.show(msg: '请求出错:${e.toString()}');
       return null;
     }
   }

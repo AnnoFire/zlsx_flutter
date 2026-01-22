@@ -46,7 +46,7 @@ class UserInfo extends StatelessWidget {
                             return user == null
                                 ? Text('333')
                                 : Text(
-                                    controller.userInfo.value!.nickName,
+                                    user.nickName,
                                     style: TextStyle(
                                       fontSize: ScreenAdapt.fontSize(60),
                                       fontWeight: FontWeight.w500,
@@ -124,7 +124,7 @@ class UserInfo extends StatelessWidget {
                               final user = controller.userInfo.value;
                               return user == null
                                   ? Text('222')
-                                  : Text(controller.userInfo.value!.phonenumber,
+                                  : Text(user.phonenumber ?? "",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       softWrap: false,
@@ -152,7 +152,7 @@ class UserInfo extends StatelessWidget {
                             return user == null
                                 ? Text('111')
                                 : Text(
-                                    controller.userInfo.value!.organization,
+                                    user.organization ?? "",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
