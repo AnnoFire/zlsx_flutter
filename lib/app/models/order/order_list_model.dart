@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-OrderListModal orderListModalFromJson(String str) =>
-    OrderListModal.fromJson(json.decode(str));
+OrderListModel orderListModelFromJson(String str) =>
+    OrderListModel.fromJson(json.decode(str));
 
-String orderListModalToJson(OrderListModal data) => json.encode(data.toJson());
+String orderListModelToJson(OrderListModel data) => json.encode(data.toJson());
 
-class OrderListModal {
+class OrderListModel {
   DateTime? createTime;
   DateTime? updateTime;
   dynamic remark;
@@ -62,7 +62,7 @@ class OrderListModal {
   List<CustomerList>? customerList;
   int? autoShelf;
 
-  OrderListModal({
+  OrderListModel({
     this.createTime,
     this.updateTime,
     this.remark,
@@ -116,7 +116,7 @@ class OrderListModal {
     this.autoShelf,
   });
 
-  factory OrderListModal.fromJson(Map<String, dynamic> json) => OrderListModal(
+  factory OrderListModel.fromJson(Map<String, dynamic> json) => OrderListModel(
         createTime: json["createTime"] == null
             ? null
             : DateTime.parse(json["createTime"]),
@@ -232,6 +232,8 @@ class OrderListModal {
             : List<dynamic>.from(customerList!.map((x) => x.toJson())),
         "autoShelf": autoShelf,
       };
+
+  void operator [](String other) {}
 }
 
 class CustomerList {

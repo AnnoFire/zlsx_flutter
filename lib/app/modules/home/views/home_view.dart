@@ -9,20 +9,21 @@ import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 import 'package:zlsx_flutter/app/utils/tools.dart';
 import '../controllers/home_controller.dart';
 
-//TODO:   部分样式细节调整（不整了）。 上拉加载
+//TODO:   部分样式细节调整（不整了）。
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
   Widget _orderList() {
     return ListView.builder(
+      controller: controller.scrollController,
       shrinkWrap: true,
       itemCount: controller.orderList.length,
       padding: EdgeInsets.all(ScreenAdapt.height(40)),
       itemBuilder: (context, index) {
         final orderData = controller.orderList[index];
-        final selfOrder = orderData['orderType'] == OrderType.self.value;
-        final disArr = orderData['distributionType'] != null
-            ? orderData['distributionType'].split(',')
+        final selfOrder = orderData.orderType == OrderType.self.value;
+        final disArr = orderData.distributionType != null
+            ? orderData.distributionType?.split(',')
             : [];
 
         return Container(
@@ -31,6 +32,15 @@ class HomeView extends GetView<HomeController> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              // 阴影效果
+              BoxShadow(
+                color: Colors.black12.withValues(),
+                spreadRadius: 1.5, //扩散范围
+                blurRadius: 5, //模糊程度
+                offset: Offset(1, 1), //偏移量
+              ),
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -86,8 +96,7 @@ class HomeView extends GetView<HomeController> {
                                   BorderRadius.circular(ScreenAdapt.width(6)),
                             ),
                             child: Text(
-                              ChargeType.preCharge.value ==
-                                      orderData['chargeType']
+                              ChargeType.preCharge.value == orderData.chargeType
                                   ? '单次付清'
                                   : '预收尾款',
                               style: TextStyle(
@@ -96,7 +105,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ),
-                          for (var value in disArr)
+                          for (var value in disArr!)
                             Container(
                               margin:
                                   EdgeInsets.only(right: ScreenAdapt.width(24)),
@@ -137,7 +146,7 @@ class HomeView extends GetView<HomeController> {
                             BorderRadius.circular(ScreenAdapt.height(5)),
                       ),
                       child: Text(
-                        activityStatusMap[orderData['status']] ?? '',
+                        activityStatusMap[orderData.status] ?? '',
                         style: TextStyle(
                             fontSize: ScreenAdapt.fontSize(36),
                             color: Color.fromARGB(255, 55, 154, 251)),
@@ -146,33 +155,40 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(
-                    top: ScreenAdapt.height(30),
-                    bottom: ScreenAdapt.height(30)),
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: orderData['activityName'] ?? '',
-                        style: TextStyle(
-                          fontSize: ScreenAdapt.fontSize(54),
-                          color: Color.fromARGB(255, 51, 51, 51),
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: ScreenAdapt.width(16)),
-                          child: Image.network(
-                            'https://imagesize.zhsc.zxhsd.com/sp/files/267dbd54-5927-499d-9866-29e625aa4d6b.png',
-                            width: ScreenAdapt.width(40),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/home/rule-details');
+                }, //跳转到ruleDetails
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(
+                      top: ScreenAdapt.height(30),
+                      bottom: ScreenAdapt.height(30)),
+                  child: Text.rich(
+                    textAlign: TextAlign.center,
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: orderData.activityName ?? '',
+                          style: TextStyle(
+                            fontSize: ScreenAdapt.fontSize(54),
+                            color: Color.fromARGB(255, 51, 51, 51),
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ),
-                    ],
+                        WidgetSpan(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: ScreenAdapt.width(16),
+                            ),
+                            child: Image.network(
+                              'https://imagesize.zhsc.zxhsd.com/sp/files/267dbd54-5927-499d-9866-29e625aa4d6b.png',
+                              width: ScreenAdapt.width(40),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -212,7 +228,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: orderData['customerName'] ?? '-',
+                                  text: orderData.customerName ?? '-',
                                 ),
                                 WidgetSpan(
                                   alignment: PlaceholderAlignment.middle,
@@ -254,9 +270,9 @@ class HomeView extends GetView<HomeController> {
                         ),
                         Expanded(
                           child: Text(
-                            "${formatDate(orderData['orderBeginDate'])}" +
+                            "${formatDate(orderData.orderBeginDate)}" +
                                 " - " +
-                                "${formatDate(orderData['orderEndDate'])}",
+                                "${formatDate(orderData.orderEndDate)}",
                             style: TextStyle(
                               fontSize: ScreenAdapt.fontSize(48),
                             ),
@@ -280,7 +296,7 @@ class HomeView extends GetView<HomeController> {
                         child: Row(
                           children: [
                             Text(
-                              selfOrder ? "-" : orderData['preOrderCount'],
+                              selfOrder ? "-" : orderData.preOrderCount!,
                               style: TextStyle(
                                   fontSize: ScreenAdapt.fontSize(42),
                                   fontWeight: FontWeight.w500,
@@ -307,7 +323,7 @@ class HomeView extends GetView<HomeController> {
                         child: Row(
                       children: [
                         Text(
-                          orderData['orderCount'] ?? '-',
+                          orderData.orderCount ?? '-',
                           style: TextStyle(
                               fontSize: ScreenAdapt.fontSize(42),
                               fontWeight: FontWeight.w500,
@@ -333,7 +349,7 @@ class HomeView extends GetView<HomeController> {
                     Container(
                         child: Row(children: [
                       Text(
-                        orderData['afterSaleCount'] ?? '-',
+                        orderData.afterSaleCount ?? '-',
                         style: TextStyle(
                             fontSize: ScreenAdapt.fontSize(42),
                             fontWeight: FontWeight.w500,

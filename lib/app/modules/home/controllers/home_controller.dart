@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zlsx_flutter/app/models/order/order_list_modal.dart';
+import 'package:zlsx_flutter/app/models/order/order_list_model.dart';
 import 'package:zlsx_flutter/app/models/user/user_info_model.dart';
-// import 'package:zlsx_flutter/app/models/user/user_permissions_model.dart';
 import 'package:zlsx_flutter/app/utils/https_client.dart';
 
 class HomeController extends GetxController {
-  /// 滚动控制器
-  ScrollController _scrollController = ScrollController();
-  //TODO: Implement HomeController
+  // 滚动控制器
+  final ScrollController scrollController = ScrollController();
   Rxn<UserInfoModal> userInfo = Rxn<UserInfoModal>();
-  RxList permissionsList = [].obs;
-
-  //TODO: orderList的类型
-  // RxList<OrderListModal> orderList = <OrderListModal>[].obs;
-  RxList orderList = [].obs;
+  // 订单列表
+  RxList<OrderListModel> orderList = <OrderListModel>[].obs;
+  RxBool hasNext = true.obs;
 
   Future<void> getUserInfo() async {
     try {
@@ -34,11 +30,20 @@ class HomeController extends GetxController {
   Future<void> getOrderList({pageNum = 1, pageSize = 10}) async {
     try {
       var response = await HttpsClient().post(
-          "/zxhsd-yuntaigou-system/yuntaigou//api/activity/getList",
+          "/zxhsd-yuntaigou-system/yuntaigou/api/activity/getList",
           {"pageNum": pageNum, "pageSize": pageSize});
-      if (response != null) {
-        orderList.value = response.data['data']['list'];
-        // debugPrint('$orderList');
+      if (response != null &&
+          response.data != null &&
+          response.data['data'] != null) {
+        var list = response.data['data']['list'] as List? ?? [];
+        var newList = list.map((e) => OrderListModel.fromJson(e)).toList();
+
+        if (pageNum == 1) {
+          orderList.assignAll(newList);
+        } else {
+          orderList.addAll(newList);
+        }
+        hasNext.value = response.data['data']['hasNextPage'] ?? false;
       }
     } catch (e) {
       debugPrint('getOrderList 错误: $e');
@@ -46,10 +51,21 @@ class HomeController extends GetxController {
     return;
   }
 
+  void scrollerListener() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          hasNext.value) {
+        debugPrint('加载更多');
+        getOrderList(pageNum: orderList.length ~/ 10 + 1);
+      }
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
-    _scrollController.addListener(() {});
+    scrollerListener();
     getUserInfo();
     getOrderList();
   }
