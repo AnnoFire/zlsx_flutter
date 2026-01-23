@@ -151,92 +151,80 @@ class HomeView extends GetView<HomeController> {
                   )
                 ],
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/home/rule-details');
-                }, //跳转到ruleDetails
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(
-                      top: ScreenAdapt.height(30),
-                      bottom: ScreenAdapt.height(30)),
-                  child: Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: orderData.activityName ?? '',
-                          style: TextStyle(
-                            fontSize: ScreenAdapt.fontSize(54),
-                            color: Color.fromARGB(255, 51, 51, 51),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        WidgetSpan(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: ScreenAdapt.width(16),
-                            ),
-                            child: Image.network(
-                              'https://imagesize.zhsc.zxhsd.com/sp/files/267dbd54-5927-499d-9866-29e625aa4d6b.png',
-                              width: ScreenAdapt.width(40),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(
+                    top: ScreenAdapt.height(30),
+                    bottom: ScreenAdapt.height(30)),
+                child: Text(
+                  orderData.activityName ?? '',
+                  style: TextStyle(
+                    fontSize: ScreenAdapt.fontSize(54),
+                    color: Color.fromARGB(255, 51, 51, 51),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
               Column(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: ScreenAdapt.width(10)),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(right: ScreenAdapt.width(16)),
-                              child: Image.network(
-                                'https://imagesize.zhsc.zxhsd.com/sp/files/2b8219cb-b090-4149-be51-331e161e0335.png',
-                                width: ScreenAdapt.width(40),
-                              ),
-                            ),
-                            Text(
-                              '客户:',
-                              style: TextStyle(
-                                fontSize: ScreenAdapt.fontSize(48),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: RichText(
-                          text: TextSpan(
-                            style: TextStyle(
-                              fontSize: ScreenAdapt.fontSize(48),
-                              color: Colors.black,
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/home/rule-details',
+                          arguments: orderData.activityId); // 跳转到规则详情
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: ScreenAdapt.width(10)),
+                          child: Row(
                             children: [
-                              TextSpan(
-                                text: orderData.customerName ?? '-',
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: ScreenAdapt.width(16)),
+                                child: Image.network(
+                                  'https://imagesize.zhsc.zxhsd.com/sp/files/2b8219cb-b090-4149-be51-331e161e0335.png',
+                                  width: ScreenAdapt.width(40),
+                                ),
                               ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: ScreenAdapt.width(4)),
+                              Text(
+                                '客户:',
+                                style: TextStyle(
+                                  fontSize: ScreenAdapt.fontSize(48),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              style: TextStyle(
+                                fontSize: ScreenAdapt.fontSize(48),
+                                color: Colors.black,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: orderData.customerName ?? '-',
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: ScreenAdapt.width(16),
+                                    ),
+                                    child: Image.network(
+                                      'https://imagesize.zhsc.zxhsd.com/sp/files/267dbd54-5927-499d-9866-29e625aa4d6b.png',
+                                      width: ScreenAdapt.width(40),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

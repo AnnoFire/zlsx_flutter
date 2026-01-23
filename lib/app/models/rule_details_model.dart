@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final ruleDetailsModal = ruleDetailsModalFromJson(jsonString);
+//     final RuleDetailsModel = ruleDetailsModalFromJson(jsonString);
 
 import 'dart:convert';
 
-RuleDetailsModal ruleDetailsModalFromJson(String str) =>
-    RuleDetailsModal.fromJson(json.decode(str));
+RuleDetailsModel ruleDetailsModalFromJson(String str) =>
+    RuleDetailsModel.fromJson(json.decode(str));
 
-String ruleDetailsModalToJson(RuleDetailsModal data) =>
+String ruleDetailsModalToJson(RuleDetailsModel data) =>
     json.encode(data.toJson());
 
-class RuleDetailsModal {
+class RuleDetailsModel {
   DateTime? createTime;
   DateTime? updateTime;
   dynamic remark;
@@ -63,7 +63,7 @@ class RuleDetailsModal {
   List<CustomerList>? customerList;
   int? autoShelf;
 
-  RuleDetailsModal({
+  RuleDetailsModel({
     this.createTime,
     this.updateTime,
     this.remark,
@@ -117,8 +117,8 @@ class RuleDetailsModal {
     this.autoShelf,
   });
 
-  factory RuleDetailsModal.fromJson(Map<String, dynamic> json) =>
-      RuleDetailsModal(
+  factory RuleDetailsModel.fromJson(Map<String, dynamic> json) =>
+      RuleDetailsModel(
         createTime: json["createTime"] == null
             ? null
             : DateTime.parse(json["createTime"]),
