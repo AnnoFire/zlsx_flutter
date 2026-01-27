@@ -7,25 +7,33 @@ class RuleDetailsController extends GetxController {
   //TODO: Implement RuleDetailsController
   // RxMap details = {}.obs;
   Rxn<RuleDetailsModel> details = Rxn<RuleDetailsModel>();
+  RxList customerNameList = [].obs;
   RxInt customerId = 7.obs;
 
   // getter
-  // activityName, chargeType, orderBeginDate, orderEndDate, orderType
-  late final RuleDetailsModel(:activityName, :chargeType, :orderBeginDate, :orderEndDate, :orderType) = details.value;
+  RuleDetailsModel? get data => details.value;
+  String? get activityName => data?.activityName;
+  int? get chargeType => data?.chargeType;
+  String? get orderBeginDate => data?.orderBeginDate;
+  String? get orderEndDate => data?.orderEndDate;
+  int? get orderType => data?.orderType;
+  List? get customerList => data?.customerList;
 
   // 获取信息
   Future<void> getDetailsById(id) async {
     try {
       final res = await HttpsClient()
           .post("/zxhsd-yuntaigou-system/yuntaigou//api/activity/getById", id);
-      details.value = RuleDetailsModal.fromJson(res.data['data']);
-      debugPrint('${details.value}');
+      details.value = RuleDetailsModel.fromJson(res.data['data']);
+      if (details.value?.customerList != null) {
+        customerNameList.value =
+            details.value!.customerList!.map((e) => e.name).toList();
+      }
     } catch (e) {
       debugPrint('error: $e');
     }
   }
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -45,6 +53,4 @@ class RuleDetailsController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

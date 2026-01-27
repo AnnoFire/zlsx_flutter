@@ -168,6 +168,7 @@ class HomeView extends GetView<HomeController> {
               Column(
                 children: [
                   GestureDetector(
+                    //TODO: 跳转有问题
                     onTap: () {
                       Get.toNamed('/home/rule-details',
                           arguments: orderData.activityId); // 跳转到规则详情
@@ -252,9 +253,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                       Expanded(
                         child: Text(
-                          "${formatDate(orderData.orderBeginDate)}" +
+                          "${formateDate(orderData.orderBeginDate)}" +
                               " - " +
-                              "${formatDate(orderData.orderEndDate)}",
+                              "${formateDate(orderData.orderEndDate)}",
                           style: TextStyle(
                             fontSize: ScreenAdapt.fontSize(48),
                           ),
@@ -382,7 +383,12 @@ class HomeView extends GetView<HomeController> {
                           color: Colors.blueAccent,
                           backgroundColor: null,
                           onRefresh: () => controller.getOrderList(),
-                          child: _orderList())
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed('/classes');
+                            },
+                            child: _orderList(),
+                          ))
                       : SizedBox(
                           child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

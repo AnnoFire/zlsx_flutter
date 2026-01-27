@@ -24,8 +24,8 @@ class RuleDetailsModel {
   dynamic chargeBeginDate;
   dynamic chargeEndDate;
   int? orderType;
-  DateTime? orderBeginDate;
-  DateTime? orderEndDate;
+  String? orderBeginDate;
+  String? orderEndDate;
   String? distributionType;
   int? unifiedDistribution;
   int? orderDistribution;
@@ -136,12 +136,8 @@ class RuleDetailsModel {
         chargeBeginDate: json["chargeBeginDate"],
         chargeEndDate: json["chargeEndDate"],
         orderType: json["orderType"],
-        orderBeginDate: json["orderBeginDate"] == null
-            ? null
-            : DateTime.parse(json["orderBeginDate"]),
-        orderEndDate: json["orderEndDate"] == null
-            ? null
-            : DateTime.parse(json["orderEndDate"]),
+        orderBeginDate: json["orderBeginDate"],
+        orderEndDate: json["orderEndDate"],
         distributionType: json["distributionType"],
         unifiedDistribution: json["unifiedDistribution"],
         orderDistribution: json["orderDistribution"],
@@ -204,8 +200,8 @@ class RuleDetailsModel {
         "chargeBeginDate": chargeBeginDate,
         "chargeEndDate": chargeEndDate,
         "orderType": orderType,
-        "orderBeginDate": orderBeginDate?.toIso8601String(),
-        "orderEndDate": orderEndDate?.toIso8601String(),
+        "orderBeginDate": orderBeginDate,
+        "orderEndDate": orderEndDate,
         "distributionType": distributionType,
         "unifiedDistribution": unifiedDistribution,
         "orderDistribution": orderDistribution,
