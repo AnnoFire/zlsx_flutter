@@ -12,7 +12,6 @@ class RuleDetailsView extends GetView<RuleDetailsController> {
   const RuleDetailsView({super.key});
   @override
   Widget build(BuildContext context) {
-    // final res = controller.details;
     return Scaffold(
       body: Center(
         child: Container(

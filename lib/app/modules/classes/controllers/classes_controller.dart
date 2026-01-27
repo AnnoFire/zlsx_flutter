@@ -7,13 +7,11 @@ class ClassesController extends GetxController {
   RxString activityId = '7'.obs;
   RxString customerId = '1476'.obs;
 
-  // TODO: 获取活动相关数据
   Future<void> getActivityStatistic(activityId, customerId) async {
     try {
       final res = await HttpsClient().post(
           '/zxhsd-yuntaigou-system/yuntaigou/api/activity/getActivityStatisticForManage',
           {'activityId': activityId, 'customerId': customerId});
-      debugPrint('res: $res');
     } catch (e) {
       debugPrint('error: $e');
     }
@@ -32,7 +30,6 @@ class ClassesController extends GetxController {
             'pageNum': pageNum,
             'pageSize': pageSize,
           });
-      debugPrint('res: $res');
     } catch (e) {
       debugPrint('error: $e');
     }

@@ -6,7 +6,8 @@ import 'package:get_storage/get_storage.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() async{
+//Theme主题颜色统一配置
+void main() async {
   await GetStorage.init();
   runApp(
     ScreenUtilInit(
@@ -14,7 +15,7 @@ void main() async{
       builder: (context, child) {
         return GetMaterialApp(
           theme: ThemeData(
-            scaffoldBackgroundColor:Colors.white,
+            scaffoldBackgroundColor: Colors.white,
           ),
           title: "浙里书香flutter版本demo",
           initialRoute: AppPages.INITIAL,
