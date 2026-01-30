@@ -22,7 +22,7 @@ class HttpsClient {
       // "Authorization": "Bearer ${HttpsClient().getToken()}"
       //临时token
       "Authorization":
-          "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjozMTksInVzZXJfa2V5IjoiY2IyNjA4NWUtMDRlOS00MWNmLThhZGItNGExODQ4ZDliZThmIiwidXNlcm5hbWUiOiJ4dWRvbmdoIn0.0Xw2GE-U2jeyUKlYZekTTu3w7zmhvz0UyM7qlGGfFZSUXY4s9cz4U3rNX6iKuO5aNkko5Nst9VmsGgnkr2GDig"
+          "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjozMTksInVzZXJfa2V5IjoiYTkyNzQ1MmItMDFlZS00ODkxLWExNzEtNTkyODRjNTQxYmIxIiwidXNlcm5hbWUiOiJ4dWRvbmdoIn0.6TD6qweUpjk623QigdNYHUZzRUsgagHHOB8DFjKAtdTiAAP546o_NkH36-kyLIqPEVahVEtDipvYami9IplATg"
     };
   }
 

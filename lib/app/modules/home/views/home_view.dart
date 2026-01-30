@@ -42,7 +42,7 @@ class HomeView extends GetView<HomeController> {
                 boxShadow: [
                   // 阴影效果
                   BoxShadow(
-                    color: Colors.black12.withValues(),
+                    color: Colors.black12,
                     spreadRadius: 1.5, //扩散范围
                     blurRadius: 5, //模糊程度
                     offset: Offset(1, 1), //偏移量

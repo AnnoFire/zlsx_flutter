@@ -45,7 +45,7 @@ class RuleDetailsView extends GetView<RuleDetailsController> {
                             BorderRadius.circular(ScreenAdapt.width(16)),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black12.withValues(),
+                            color: Colors.black12,
                             spreadRadius: 1,
                             blurRadius: 5,
                             offset: Offset(1, 1),

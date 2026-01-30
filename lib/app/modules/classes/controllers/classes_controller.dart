@@ -4,8 +4,11 @@ import 'package:zlsx_flutter/app/utils/https_client.dart';
 
 class ClassesController extends GetxController {
   //TODO: Implement ClassesController
+  RxBool isRefresh = false.obs;
+  RxBool swipe = false.obs;
   RxString activityId = '7'.obs;
   RxString customerId = '1476'.obs;
+  RxInt selectedTabIndex = 0.obs;
 
   Future<void> getActivityStatistic(activityId, customerId) async {
     try {

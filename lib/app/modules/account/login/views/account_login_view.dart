@@ -36,7 +36,7 @@ class AccountLoginView extends GetView<AccountLoginController> {
                           fontWeight: FontWeight.w600,
                           color: Color.fromRGBO(60, 60, 60, 1))),
                   SizedBox(height: ScreenAdapt.height(36)),
-                  Text('「浙里书香」管理端',
+                  Text('「之江书香」管理端',
                       style: TextStyle(
                           fontSize: ScreenAdapt.fontSize(80),
                           fontWeight: FontWeight.w600,

@@ -1,6 +1,6 @@
 # zlsx_flutter
 
-浙里书香flutter版本demo
+之江书香flutter版本demo
 
 ## Getting Started
 

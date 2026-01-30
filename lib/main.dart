@@ -17,7 +17,7 @@ void main() async {
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
           ),
-          title: "浙里书香flutter版本demo",
+          title: "之江书香flutter版本demo",
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           debugShowCheckedModeBanner: false,

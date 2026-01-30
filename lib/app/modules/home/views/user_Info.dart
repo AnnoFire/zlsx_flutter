@@ -44,7 +44,7 @@ class UserInfo extends StatelessWidget {
                           child: Obx(() {
                             final user = controller.userInfo.value;
                             return user == null
-                                ? Text('333')
+                                ? Text('')
                                 : Text(
                                     user.nickName,
                                     style: TextStyle(
