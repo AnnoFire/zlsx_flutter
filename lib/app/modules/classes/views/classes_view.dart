@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
 
 import '../controllers/classes_controller.dart';
+import 'components/classes_search_bar.dart';
 
-//TODO : 标题 刷新 用户名称（超出。。。） 小页面的切换   搜索   内容展示（空内容） 订单数量
+//TODO : 标题 刷新 用户名称（超出。。。） 小页面的切换   搜索（接口）   内容展示（空内容）   订单数量
 class ClassesView extends GetView<ClassesController> {
   const ClassesView({super.key});
   @override
@@ -28,7 +29,7 @@ class ClassesView extends GetView<ClassesController> {
             ),
           ),
           //内容
-          Center(
+          SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: ScreenAdapt.height(120)),
@@ -43,9 +44,9 @@ class ClassesView extends GetView<ClassesController> {
                           Obx(
                             () => Text(
                               //'活动名称',
-                              controller.activityId.value,
+                              controller.activityName.value,
                               style: TextStyle(
-                                  fontSize: ScreenAdapt.fontSize(80),
+                                  fontSize: ScreenAdapt.fontSize(64),
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -88,6 +89,7 @@ class ClassesView extends GetView<ClassesController> {
                         ],
                       )),
                 ),
+                SizedBox(height: ScreenAdapt.height(20)),
                 Obx(
                   () => Row(
                     children: [
@@ -96,37 +98,70 @@ class ClassesView extends GetView<ClassesController> {
                         onTap: () {
                           controller.selectedTabIndex.value = 0;
                         },
-                        child: Text(
-                          '班级统计',
-                          style: TextStyle(
-                            fontSize: ScreenAdapt.fontSize(50),
-                            fontWeight: controller.selectedTabIndex.value == 0
-                                ? FontWeight.bold
-                                : FontWeight.w500,
-                            color: controller.selectedTabIndex.value == 0
-                                ? Color.fromARGB(255, 55, 154, 251)
-                                : Color.fromARGB(255, 153, 153, 153),
-                          ),
+                        child: Column(
+                          children: [
+                            Text(
+                              '班级统计',
+                              style: TextStyle(
+                                fontSize: ScreenAdapt.fontSize(50),
+                                fontWeight:
+                                    controller.selectedTabIndex.value == 0
+                                        ? FontWeight.bold
+                                        : FontWeight.w500,
+                                color: controller.selectedTabIndex.value == 0
+                                    ? Color.fromARGB(255, 55, 154, 251)
+                                    : Color.fromARGB(255, 153, 153, 153),
+                              ),
+                            ),
+                            SizedBox(height: ScreenAdapt.height(12)),
+                            Container(
+                              width: ScreenAdapt.width(50),
+                              height: ScreenAdapt.width(12),
+                              decoration: BoxDecoration(
+                                color: controller.selectedTabIndex.value == 0
+                                    ? Color.fromARGB(255, 55, 154, 251)
+                                    : Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.circular(ScreenAdapt.width(6)),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(width: ScreenAdapt.width(60)),
                       GestureDetector(
-                        onTap: () {
-                          controller.selectedTabIndex.value = 1;
-                        },
-                        child: Text(
-                          '订单明细',
-                          style: TextStyle(
-                            fontSize: ScreenAdapt.fontSize(50),
-                            fontWeight: controller.selectedTabIndex.value == 1
-                                ? FontWeight.bold
-                                : FontWeight.w500,
-                            color: controller.selectedTabIndex.value == 1
-                                ? Color.fromARGB(255, 55, 154, 251)
-                                : Color.fromARGB(255, 153, 153, 153),
-                          ),
-                        ),
-                      ),
+                          onTap: () {
+                            controller.selectedTabIndex.value = 1;
+                          },
+                          child: Column(
+                            children: [
+                              Text(
+                                '订单明细',
+                                style: TextStyle(
+                                  fontSize: ScreenAdapt.fontSize(50),
+                                  fontWeight:
+                                      controller.selectedTabIndex.value == 1
+                                          ? FontWeight.bold
+                                          : FontWeight.w500,
+                                  color: controller.selectedTabIndex.value == 1
+                                      ? Color.fromARGB(255, 55, 154, 251)
+                                      : Color.fromARGB(255, 153, 153, 153),
+                                ),
+                              ),
+                              SizedBox(height: ScreenAdapt.height(12)),
+                              Container(
+                                width: ScreenAdapt.width(50),
+                                height: ScreenAdapt.width(12),
+                                decoration: BoxDecoration(
+                                  color: controller.selectedTabIndex.value == 1
+                                      ? Color.fromARGB(255, 55, 154, 251)
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(
+                                      ScreenAdapt.width(6)),
+                                ),
+                              ),
+                            ],
+                          )),
                       Expanded(
                         child: Text.rich(
                           TextSpan(
@@ -152,45 +187,106 @@ class ClassesView extends GetView<ClassesController> {
                     ],
                   ),
                 ),
-                Padding(
-                    padding: EdgeInsets.all(ScreenAdapt.height(50)),
-                    // 订单数量
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text('0'),
-                            Text('订购人数'),
-                          ],
+                Obx(() => controller.selectedTabIndex.value == 1
+                    ? Padding(
+                        padding: EdgeInsets.fromLTRB(ScreenAdapt.width(50),
+                            ScreenAdapt.height(40), ScreenAdapt.width(50), 0),
+                        // 订单数量
+                        child: Container(
+                          padding: EdgeInsets.all(ScreenAdapt.height(50)),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.circular(ScreenAdapt.width(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 10,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  Text(
+                                    '0',
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapt.fontSize(50),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: ScreenAdapt.height(10)),
+                                  Text(
+                                    '订购人数',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Color.fromARGB(255, 102, 102, 102)),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    '0',
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapt.fontSize(50),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: ScreenAdapt.height(10)),
+                                  Text(
+                                    '订单数',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Color.fromARGB(255, 102, 102, 102)),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    '0',
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapt.fontSize(50),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: ScreenAdapt.height(10)),
+                                  Text(
+                                    '支付数',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Color.fromARGB(255, 102, 102, 102)),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    '0',
+                                    style: TextStyle(
+                                        fontSize: ScreenAdapt.fontSize(50),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(height: ScreenAdapt.height(10)),
+                                  Text(
+                                    '收获数',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color:
+                                            Color.fromARGB(255, 102, 102, 102)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          children: [
-                            Text('0'),
-                            Text('订单数'),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('0'),
-                            Text('支付数'),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('0'),
-                            Text('收获数'),
-                          ],
-                        ),
-                      ],
-                    )),
-                //搜索框
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: '请输入班级名称',
-                  ),
-                ),
+                      )
+                    : const SizedBox.shrink()),
+                const ClassesSearchBar(),
                 // 方案一 自动占满剩余空间
                 // Expanded(
                 //   child: Container(
@@ -228,41 +324,75 @@ class ClassesView extends GetView<ClassesController> {
                 //     ),
                 //   ),
                 // )
-
                 //方案二 固定高度
-                Container(
-                  margin: EdgeInsets.all(ScreenAdapt.width(50)),
-                  width: double.infinity,
-                  height: ScreenAdapt.height(1600),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(ScreenAdapt.width(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        spreadRadius: 1,
-                        blurRadius: 5,
-                        offset: Offset(1, 1),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.network(
-                        'https://imagesize.zhsc.zxhsd.com/sp/files/6f80b763-1157-4dc6-aca5-0bf5f3301191.png',
-                        height: ScreenAdapt.height(400),
-                        width: ScreenAdapt.width(400),
-                      ),
-                      SizedBox(height: ScreenAdapt.height(70)),
-                      Text(
-                        '暂无数据',
-                        style: TextStyle(
-                            fontSize: ScreenAdapt.fontSize(48),
-                            color: Colors.black54),
-                      ),
-                    ],
-                  ),
+                Obx(
+                  () => controller.selectedTabIndex.value == 0
+                      ? Container(
+                          margin: EdgeInsets.all(ScreenAdapt.width(50)),
+                          width: double.infinity,
+                          height: ScreenAdapt.height(1400),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.circular(ScreenAdapt.width(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(1, 1),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.network(
+                                'https://imagesize.zhsc.zxhsd.com/sp/files/6f80b763-1157-4dc6-aca5-0bf5f3301191.png',
+                                height: ScreenAdapt.height(480),
+                                width: ScreenAdapt.width(480),
+                              ),
+                              SizedBox(height: ScreenAdapt.height(70)),
+                              //List.view
+                              Text(
+                                '暂无数据',
+                                style: TextStyle(
+                                    fontSize: ScreenAdapt.fontSize(48),
+                                    color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                                onTap: () => {debugPrint('test')},
+                                child: Container(
+                                  margin: EdgeInsets.all(ScreenAdapt.width(50)),
+                                  padding:
+                                      EdgeInsets.all(ScreenAdapt.width(50)),
+                                  height: ScreenAdapt.height(500),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(
+                                        ScreenAdapt.width(20)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: Offset(1, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text('1124'),
+                                ));
+                          },
+                        ),
                 )
               ],
             ),

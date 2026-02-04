@@ -7,8 +7,11 @@ class ClassesController extends GetxController {
   RxBool isRefresh = false.obs;
   RxBool swipe = false.obs;
   RxString activityId = '7'.obs;
+  RxString activityName = '这是一个名称'.obs;
   RxString customerId = '1476'.obs;
   RxInt selectedTabIndex = 0.obs;
+  RxString searchText = ''.obs;
+  final TextEditingController searchController = TextEditingController();
 
   Future<void> getActivityStatistic(activityId, customerId) async {
     try {
@@ -48,6 +51,10 @@ class ClassesController extends GetxController {
     }
     getActivityStatistic(activityId.value, customerId.value);
     orderCustomerDetail(activityId.value, customerId.value, '', 1, 10);
+
+    searchController.addListener(() {
+      searchText.value = searchController.text;
+    });
   }
 
   @override
@@ -57,6 +64,7 @@ class ClassesController extends GetxController {
 
   @override
   void onClose() {
+    searchController.dispose();
     super.onClose();
   }
 }

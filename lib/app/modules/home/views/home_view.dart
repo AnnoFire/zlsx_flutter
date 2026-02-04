@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:zlsx_flutter/app/models/constants.dart';
-import 'package:zlsx_flutter/app/modules/home/views/user_info.dart';
+import 'package:zlsx_flutter/app/modules/home/views/components/user_info.dart';
 import 'package:zlsx_flutter/app/utils/https_client.dart';
 import 'package:zlsx_flutter/app/utils/keep_alive_wrapper.dart';
 import 'package:zlsx_flutter/app/utils/screen_adapt.dart';
